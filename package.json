@@ -1,0 +1,39 @@
+{
+  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "packageManager": "pnpm@10.18.3",
+  "scripts": {
+    "build": "pnpm -r build",
+    "dev": "pnpm -r --parallel dev",
+    "lint": "eslint --cache .",
+    "prepublishOnly": "pnpm build",
+    "test": "pnpm test:scripts && pnpm -r --if-present test",
+    "test:scripts": "vitest run scripts",
+    "typecheck": "tsc -p tsconfig.json --noEmit && pnpm -r --if-present typecheck",
+    "prepare": "simple-git-hooks",
+    "release": "changeset publish",
+    "create:pkg": "tsx scripts/createPackage.ts"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "catalog:cli",
+    "@changesets/changelog-github": "catalog:cli",
+    "@changesets/cli": "catalog:cli",
+    "@inquirer/prompts": "catalog:cli",
+    "@types/node": "catalog:types",
+    "eslint": "catalog:cli",
+    "lint-staged": "catalog:cli",
+    "simple-git-hooks": "catalog:cli",
+    "tsdown": "catalog:cli",
+    "tsx": "catalog:cli",
+    "typescript": "catalog:cli",
+    "vite": "catalog:testing",
+    "vitest": "catalog:testing"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
+  }
+}
